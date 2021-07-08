@@ -1,0 +1,100 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "EasyFluxo - Controle de caixa",
+        "description": "Uma API desenvolvida para controlar e organizar o fluxo de caixa de micro empreendedores.",
+        "contact": {
+            "email": "moraesemile@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "components": {
+        "securitySchemes": {
+          "bearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+          }
+        }
+      },
+
+    "servers": [
+        {
+            "url": "http://localhost:8080/",
+            "description": "EasyFluxo - Controle de caixa"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Usuarios",
+            "description": "Rotas de usuarios cadastrados"
+        },
+        {
+            "name": "Lojas",
+            "description": "Rotas de lojas cadastradas"
+        },
+        {
+            "name": "Produtos",
+            "description": "Rotas de produtos cadastrados"
+        },
+        {
+            "name": "Vendas",
+            "description": "Rotas de vendas cadastradas"
+        }
+    ],
+    "paths": {
+        "/usuarios/create": {
+            "post": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Cadastrar usuarios",
+                "description": "Cadastro de usuarios",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "nome":{
+                                        "type": "string"
+                                    },
+                                    "email":{
+                                        "type":"string"
+                                    },
+                                    "senha":{
+                                        "type":"string"
+                                    }
+                                },
+                                "example": {
+                                    "nome": "Ana",
+                                    "email": "ana@gmail.com",
+                                    "senha": "ana123",
+                                    "isAdmin": true
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "404": {
+                        "description": "ERRO",
+                        "content": {}
+                    },
+                    "200": {
+                        "description": "Novo usuario criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Usuarios"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
