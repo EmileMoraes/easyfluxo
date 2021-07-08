@@ -1,6 +1,6 @@
 # Projeto Final da {Reprograma}
 
-<h1 align="center">
+<h1>
     <img alt="EasyFluxo" title="#EasyFluxo" src="./assets/EasyFluxo.png" />
 </h1>
 
