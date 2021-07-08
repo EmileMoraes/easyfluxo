@@ -1,7 +1,7 @@
 # Projeto Final da {Reprograma}
 
-<h1 align="center">
-    <img alt="EasyFluxo" title="#EasyFluxo" src="./assets/EasyFluxo.png" />
+<h1>
+    <img src="./assets/EasyFluxo.png" width="100%">
 </h1>
 
 <h4 align="center"> 
@@ -111,13 +111,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 -   **[Mongoose](https://mongoosejs.com/)**
 -   **[JavaScript](https://www.javascript.com/)**
 -   **[Node.js](https://nodejs.org/en/)**
-
-
-#### [](https://github.com/tgmarinho/Ecoleta#utilit%C3%A1rios)**Utilitários**
-
--   Protótipo:  **[Figma](https://www.figma.com/)**  →  **[Protótipo (Ecoleta)](https://www.figma.com/file/1SxgOMojOB2zYT0Mdk28lB/Ecoleta)**
--   Editor:  **[Visual Studio Code](https://code.visualstudio.com/)**  → Extensions:  **[SQLite](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite)**
--   Teste de API:  **[Insomnia](https://insomnia.rest/)**
 
 ## ✅ Rotas 
 
