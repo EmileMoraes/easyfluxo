@@ -112,13 +112,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 -   **[JavaScript](https://www.javascript.com/)**
 -   **[Node.js](https://nodejs.org/en/)**
 
-
-#### [](https://github.com/tgmarinho/Ecoleta#utilit%C3%A1rios)**Utilitários**
-
--   Protótipo:  **[Figma](https://www.figma.com/)**  →  **[Protótipo (Ecoleta)](https://www.figma.com/file/1SxgOMojOB2zYT0Mdk28lB/Ecoleta)**
--   Editor:  **[Visual Studio Code](https://code.visualstudio.com/)**  → Extensions:  **[SQLite](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite)**
--   Teste de API:  **[Insomnia](https://insomnia.rest/)**
-
 ## ✅ Rotas 
 
 #### Aplicação:
