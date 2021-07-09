@@ -61,7 +61,7 @@ const deleteUsuario = async (req, res) => {
 
         try {
             const usuario = await userAdminDB.findById(req.params.id)
-            if (userAdminDB == null) {
+            if (usuario == null) {
                 return res.status(404).json({ message: 'Administrador não encontrado' })
             }
             await usuario.remove()
