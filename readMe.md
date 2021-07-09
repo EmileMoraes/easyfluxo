@@ -1,7 +1,7 @@
 # Projeto Final da {Reprograma}
 
 <h1>
-    <img src="./src/assets/EasyFluxo.png" width="100%">
+    <img src="./src/assets/EasyFluxo.png" width="60%">
 </h1>
 
 <h4 align="center"> 
@@ -55,11 +55,11 @@ A aplicação vai além do seu propósito inicial e será disponibilizada gratui
 ### Web
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="EasyFluxo" title="#EasyFluxo" src="./assets/cadastro.png">
+  <img alt="EasyFluxo" title="#EasyFluxo" src="./src/assets/cadastro.png">
 </p>
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="EasyFluxo" title="#EasyFluxo" src="./assets/easyfbanner.png">
+  <img alt="EasyFluxo" title="#EasyFluxo" src="./src/assets/easyfbanner.png">
 </p>
 
 ---
