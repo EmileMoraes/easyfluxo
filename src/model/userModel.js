@@ -14,10 +14,6 @@ const usuarioSchema = new mongoose.Schema({
     senha: {
         type: String,
         required: true
-    },
-    isAdmin: {
-        type: Boolean,
-        required: true
     }
 });
 

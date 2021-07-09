@@ -2,7 +2,7 @@ require('dotenv-safe').config();
 const mongoose = require('mongoose')
 const LojaDb = require('../model/lojasModel')
 const utils = require('../utils/func')
-const SECRET = process.env.SECRET
+const SECRET = `${process.env.SECRET}`
 const jwt = require('jsonwebtoken');
 const createLoja = async (req, res) => {
     const authHeader = req.get('authorization');

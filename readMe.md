@@ -203,8 +203,7 @@ get('/getUsuario')
 {
   "nome":"Seu nome / loja",
   "email":"seuemail@gmail.com",
-  "senha":"521521",
-  "isAdmin": true
+  "senha":"521521"
 }
 ```
 

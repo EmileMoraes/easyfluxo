@@ -1,7 +1,7 @@
 const userAdminDB = require('../model/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const SECRET = process.env.SECRET;
+const SECRET = `${process.env.SECRET}`;
 const utils = require('../utils/func')
 
 const getUsuario = async (req, res) => {
@@ -29,7 +29,7 @@ const createUsuario = async (req, res) => {
 
     const { nome, email, senha, isAdmin } = req.body
 
-    if (email == "" || senha == "" || nome == "" || isAdmin == "") {
+    if (email == "" || senha == "" || nome == "") {
         return res.status(400).json({ message: 'Favor preencher todos campos' })
     }
 
