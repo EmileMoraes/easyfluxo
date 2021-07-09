@@ -91,7 +91,7 @@ const login = async (req, res) => {
         return res.status(403).send(`Senha invalida ${senhaValida}`);
     }
     try {
-        const token = jwt.sign({ email: req.body.email }, SECRET);
+        const token = jwt.sign({ email: req.body.email }, process.env.SECRET);
 
         return res.status(200).json(token);
     } catch (err) {
