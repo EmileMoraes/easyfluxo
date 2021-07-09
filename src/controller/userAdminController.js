@@ -93,7 +93,7 @@ const login = async (req, res) => {
     try {
         const token = jwt.sign({ email: req.body.email }, SECRET);
 
-        return res.status(200).json({ message: 'Token ', token });
+        return res.status(200).json(token);
     } catch (err) {
         return res.status(500).json({ message: err.message })
     }
