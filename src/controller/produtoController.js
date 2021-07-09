@@ -50,7 +50,7 @@ const getAllProducts = async (req, res) => {
             const products = await ProductBD.find().populate({ path: 'loja', select: 'nome' });
             return res.status(200).json({ message: 'Produtos cadastrados no banco de dados', products });
         } catch (err) {
-            return res.status(500).json({ message: message.err })
+            return res.status(500).json({ message: err.message })
         }
     })
 }
