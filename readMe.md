@@ -236,8 +236,9 @@ get('/getUsuario')
 
 ## 👩‍👧‍👦 Agradecimentos
 
-Agradeço a {Reprograma} por ser constituida de tantas pessoas incriveis e cuidado com todas nós e agradeço pela oportunidade incrivel de aprendizado e parceria, a todas as minha colegas que me acompanharam inclusive nos surtos 😅
-A minha familia que sempre me apoia em todos os meus caminhos, e um agradecimento especial a QA mais exigente e incrivel que tenho o prazer de conviver Julliane Freitas, que sempre me aconselha e puxa minha orelha nesse mundo tão novo e desafiador que é a tecnologia.
+Agradeço a {Reprograma} por ser constituída de tantas pessoas incríveis e ter um cuidado com todas nós!  Agradeço muito pela oportunidade incrível de aprendizado e parceria, amo vocês!!  A todas as minhas colegas que me acompanharam inclusive nos surtos 😅, sou muito grata, a rede que construímos é fantástica! 
+A minha família que sempre me apoia em todos os meus caminhos, e um agradecimento especial a QA mais exigente e incrível que tenho o prazer de conviver, Julliane Freitas que sempre me aconselha e puxa minha orelha nesse mundo tão novo e desafiador que é a tecnologia.
+
 
 
 ---
