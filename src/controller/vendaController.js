@@ -1,7 +1,7 @@
 
 require('dotenv-safe').config();
 const VendaDb = require('../model/vendaModel');
-const SECRET = process.env.SECRET
+const SECRET = `${process.env.SECRET}`
 const jwt = require('jsonwebtoken');
 
 const getVendas = async (req, res) => {
