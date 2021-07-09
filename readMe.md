@@ -83,7 +83,7 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 $ git clone 
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd easy-fluxo/
+$ cd easyfluxo/
 
 # Instale as dependências
 $ npm install
@@ -207,9 +207,6 @@ get('/getUsuario')
   "isAdmin": true
 }
 ```
-
-
----
 
 ## 💪 Como contribuir para o projeto
 
