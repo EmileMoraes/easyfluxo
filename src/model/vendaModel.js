@@ -37,6 +37,7 @@ const vendaSchema = new mongoose.Schema({
     loja: {
         type: String,
         required: true,
+        unique: false,
         ref: 'loja'
     }
 }, {
