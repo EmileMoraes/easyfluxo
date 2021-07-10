@@ -25,6 +25,7 @@ const produtoSchema = new mongoose.Schema({
     loja: {
         type: String,
         required: true,
+        unique: true,
         ref: 'loja'
     },
     createAt: {

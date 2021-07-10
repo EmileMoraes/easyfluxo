@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const ProductBD = require('../model/produtoModel')
+const Lojadb = require('../model/lojasModel')
 const utils = require('../utils/func')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -16,15 +17,26 @@ const createProduct = async (req, res) => {
         if (erro) {
             return res.status(403).send('Token invalido');
         }
-        const { nome, precoUnitario, estoque, categoria } = req.body
-        if((nome == "" || nome == undefined) || (precoUnitario == "" || precoUnitario == undefined) || (estoque == "" || estoque == undefined) ||(categoria == "" || categoria == undefined) ){
+        const { nome, precoUnitario, estoque, categoria, loja } = req.body
+        if ((nome == "" || nome == undefined) || (precoUnitario == "" || precoUnitario == undefined) || (estoque == "" || estoque == undefined) || (categoria == "" || categoria == undefined)) {
             return res.status(400).json({ error: 'Favor inserir ou preencher todos os campos' })
         }
-        req.body.nome = utils.transfMaiuscula(req.body.nome)
-        const productExiste = await ProductBD.findOne({ nome: req.body.nome })
-        if (productExiste) {
-            return res.status(409).json({ error: 'Produto já existe' })
+
+        if (precoUnitario < 0 || estoque < 0) {
+            return res.status(400).json({ message: 'Favor não inserir valores negativos' })
         }
+        try {
+            req.body.nome = utils.transfMaiuscula(req.body.nome)
+            const productExiste = await ProductBD.findOne({ nome: req.body.nome })
+            if (productExiste) {
+                return res.status(409).json({ error: 'Produto já existe' })
+            }
+            const lojaExiste = await Lojadb.findById({ _id: loja })
+            res.status(200)
+        } catch (err) {
+            return res.status(404).json({ message: 'Loja não existe' })
+        }
+
         try {
             const product = await ProductBD.create(req.body)
             const novoproduct = await product.save()
@@ -66,16 +78,17 @@ const findProduct = async (req, res) => {
         if (erro) {
             return res.status(403).send('Token invalido');
         }
+
         try {
-            const { nome } = req.query
-            if (nome == "") {
+            const { busca } = req.query
+            if (busca == "") {
                 return res.status(400).json({ message: 'Favor inserir o nome do produto' })
             }
-            const product = await ProductBD.findOne({nome})
-            if(product == undefined){
-                return res.status(404).json({message: 'Produto não encontrado, favor inserir nome valido'})
+            const produto = await ProductBD.find({ nome: { $regex: `.*${busca}.*` } })
+            if (produto == undefined) {
+                return res.status(404).json({ message: 'Produto não encontrado, favor inserir nome valido' })
             }
-            res.status(200).json({message: `Produtos com o nome ${nome} encontrados `, product})
+            return res.status(200).json({message: 'Produtos encontrados: ', produto})
         } catch (err) {
             res.status(500).json({ message: err.message })
         }
@@ -95,21 +108,21 @@ const updateProduct = async (req, res) => {
         }
         try {
             const product = await ProductBD.findById(req.params.id)
-            
+
             if (product == undefined) {
                 return res.status(404).json({ message: 'Produto não encontrado' })
             }
-            
+
             if (req.body.nome != null) {
                 product.nome = req.body.nome
             }
-            if(req.body.precoUnitario != null){
+            if (req.body.precoUnitario != null) {
                 product.precoUnitario = req.body.precoUnitario
             }
-            if(req.body.estoque != null){
+            if (req.body.estoque != null) {
                 product.estoque = req.body.estoque
             }
-            if(req.body.categoria != null){
+            if (req.body.categoria != null) {
                 product.categoria = req.body.categoria
             }
 
@@ -138,8 +151,8 @@ const deleteProduct = async (req, res) => {
             if (product == undefined) {
                 return res.status(400).json({ message: 'Por favor verificar e preencher ID correto' })
             }
-            
-            
+
+
             await product.remove()
             return res.json({ message: 'Produto deletado com sucesso!' })
         } catch (err) {

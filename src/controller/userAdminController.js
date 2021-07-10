@@ -61,14 +61,14 @@ const deleteUsuario = async (req, res) => {
 
         try {
             const usuario = await userAdminDB.findById(req.params.id)
-            if (usuario == null) {
+            if (usuario == null || usuario == undefined) {
                 return res.status(404).json({ message: 'Administrador não encontrado' })
             }
             await usuario.remove()
             res.json({ message: 'Administrador deletado com sucesso!' })
 
         } catch (err) {
-            return res.status(500).json({ message: err.message })
+            return res.status(400).json({ message: `Id informado é invalido` })
         }
     })
 }
@@ -93,7 +93,8 @@ const login = async (req, res) => {
     try {
         const token = jwt.sign({ email: req.body.email }, `${process.env.SECRET}`);
 
-        return res.status(200).json(token);
+        return res.status(200).json({message:'Token gerado com sucesso!', 
+        "token: " : token});
     } catch (err) {
         return res.status(500).json({ message: err.message })
     }

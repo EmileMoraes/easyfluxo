@@ -1,6 +1,7 @@
 
 require('dotenv-safe').config();
 const VendaDb = require('../model/vendaModel');
+const Lojadb = require('../model/lojasModel');
 const SECRET = `${process.env.SECRET}`
 const jwt = require('jsonwebtoken');
 
@@ -25,33 +26,39 @@ const getVendas = async (req, res) => {
 }
 
 const createVend = async (req, res) => {
-  try {
-    const authHeader = req.get('authorization');
-    if (!authHeader) {
-      return res.status(401).send("Não autorizado")
+  const authHeader = req.get('authorization');
+  if (!authHeader) {
+    return res.status(401).send("Não autorizado")
+  }
+
+  const token = authHeader.split(' ')[1];
+  jwt.verify(token, SECRET, async function (erro) {
+    if (erro) {
+      return res.status(403).send('Token invalido');
     }
 
-    const token = authHeader.split(' ')[1];
-    jwt.verify(token, SECRET, async function (erro) {
-      if (erro) {
-        return res.status(403).send('Token invalido');
-      }
+    const { dia, quantItensVendidoDia, valorMontanteDia, despesaPessoal, valorFornecedor, loja } = req.body
 
-      const{ dia, quantItensVendidoDia, valorMontanteDia, despesaPessoal, valorFornecedor, loja} = req.body
+    if (dia == "" || quantItensVendidoDia == "" || valorMontanteDia == "" || despesaPessoal == "" || valorFornecedor == "" || loja == "") {
+      return res.status(400).json({ message: 'Favor preencher todos os campos' })
+    }
 
-      if(dia == "" || quantItensVendidoDia == "" || valorMontanteDia =="" || despesaPessoal == "" || valorFornecedor == "" || loja == ""){
-        return res.status(400).json({message: 'Favor preencher todos os campos'})
-      }
+    if (quantItensVendidoDia < 0 || despesaPessoal < 0 || valorFornecedor < 0 || valorMontanteDia < 0) {
+      return res.status(400).json({ message: 'Error, não é possivel inserir números negativos' })
+    }
 
-      if(quantItensVendidoDia < 0 || despesaPessoal < 0 || valorFornecedor < 0 || valorMontanteDia < 0){
-        return res.status(400).json({message: 'Error, não é possivel inserir números negativos'})
+
+
+    try {
+      const lojaExiste = await Lojadb.findById({ _id: loja })
+      if (lojaExiste) {
+        res.status(200)
       }
 
       const venda = await VendaDb.create(req.body)
 
       const caixaValorDia = venda.valorMontanteDia - (venda.despesaPessoal + venda.valorFornecedor)
-
-      if(caixaValorDia < 0){
+      if (caixaValorDia < 0) {
         venda.valorPrejuizo = caixaValorDia
       } else {
         venda.valorLucro = caixaValorDia
@@ -59,12 +66,12 @@ const createVend = async (req, res) => {
 
       const novaVenda = await venda.save()
       res.status(201).json({ message: 'Nova venda cadastrada com sucesso!', novaVenda })
-    })
-  } catch (err) {
-    return res.status(400).json({ message: err.message })
-  }
-}
+    } catch (err) {
+      return res.status(400).json({ message: err.message })
+    }
 
+  })
+}
 const updateVend = async (req, res) => {
   try {
     const authHeader = req.get('authorization');
@@ -86,6 +93,9 @@ const updateVend = async (req, res) => {
       if (req.body.quantItensVendidoDia != null) {
         venda.quantItensVendidoDia = req.body.quantItensVendidoDia;
       }
+      if (req.body.valorMontanteDia != null) {
+        venda.valorMontanteDia = req.body.valorMontanteDia;
+      }
       if (req.body.despesaPessoal != null) {
         venda.despesaPessoal = req.body.despesaPessoal;
       }
@@ -97,41 +107,41 @@ const updateVend = async (req, res) => {
       }
 
       const upVenda = await venda.save()
-      return res.status(200).json({message: 'Alteração realizada com sucesso!', upVenda})
+      return res.status(200).json({ message: 'Alteração realizada com sucesso!', upVenda })
     })
-  } catch(err){
+  } catch (err) {
     return res.status(500).json({ message: err.message })
   }
 }
 
 const deleteVend = async (req, res) => {
-    try {
-      const authHeader = req.get('authorization');
-      if (!authHeader) {
-        return res.status(401).send("Não autorizado")
+  try {
+    const authHeader = req.get('authorization');
+    if (!authHeader) {
+      return res.status(401).send("Não autorizado")
+    }
+
+    const token = authHeader.split(' ')[1];
+    jwt.verify(token, SECRET, async function (erro) {
+      if (erro) {
+        return res.status(403).send('Token invalido');
       }
 
-      const token = authHeader.split(' ')[1];
-      jwt.verify(token, SECRET, async function (erro) {
-        if (erro) {
-          return res.status(403).send('Token invalido');
-        }
-
-        const venda = await VendaDb.findById(req.params.id)
-        if (venda == null) {
-          return res.status(404).json({ message: 'Venda não encontrada' })
-        }
-        await venda.remove()
-        return res.json('Registro removido')
-      })
-    } catch (err) {
-      return res.status(500).json({ message: err.message })
-    }
+      const venda = await VendaDb.findById(req.params.id)
+      if (venda == null) {
+        return res.status(404).json({ message: 'Venda não encontrada' })
+      }
+      await venda.remove()
+      return res.json('Registro removido')
+    })
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
   }
+}
 
-  module.exports = {
-    getVendas,
-    createVend,
-    deleteVend,
-    updateVend
-  }
+module.exports = {
+  getVendas,
+  createVend,
+  deleteVend,
+  updateVend
+}
