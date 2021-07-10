@@ -51,8 +51,8 @@ const createVend = async (req, res) => {
 
     try {
       const lojaExiste = await Lojadb.findById({ _id: loja })
-      if (lojaExiste) {
-        res.status(200)
+      if (!lojaExiste) {
+        return res.status(400).json({ message: 'Loja não existe' })
       }
 
       const venda = await VendaDb.create(req.body)

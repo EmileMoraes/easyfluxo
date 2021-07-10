@@ -32,9 +32,12 @@ const createProduct = async (req, res) => {
                 return res.status(409).json({ error: 'Produto já existe' })
             }
             const lojaExiste = await Lojadb.findById({ _id: loja })
-            res.status(200)
+            if (!lojaExiste) {
+                return res.status(400).json({ message: 'Loja não existe' })
+            }
+
         } catch (err) {
-            return res.status(404).json({ message: 'Loja não existe' })
+            return res.status(500).json({ message: err.message })
         }
 
         try {
@@ -88,7 +91,7 @@ const findProduct = async (req, res) => {
             if (produto == undefined) {
                 return res.status(404).json({ message: 'Produto não encontrado, favor inserir nome valido' })
             }
-            return res.status(200).json({message: 'Produtos encontrados: ', produto})
+            return res.status(200).json({ message: 'Produtos encontrados: ', produto })
         } catch (err) {
             res.status(500).json({ message: err.message })
         }
