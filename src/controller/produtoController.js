@@ -36,16 +36,11 @@ const createProduct = async (req, res) => {
                 return res.status(400).json({ message: 'Loja não existe' })
             }
 
-        } catch (err) {
-            return res.status(500).json({ message: err.message })
-        }
-
-        try {
             const product = await ProductBD.create(req.body)
             const novoproduct = await product.save()
             res.status(201).json({ message: 'Novo produto cadastrado com sucesso!', novoproduct })
         } catch (err) {
-            return res.status(400).json({ message: erro.message })
+            return res.status(400).json({ message: err.message })
         }
     })
 }
