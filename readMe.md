@@ -162,8 +162,7 @@ delete('/:id')
   "nome": "Nome da sua loja",
   "endereco": "Endereço VI",
   "redesSociais": "@seuuser",
-  "telefone": "00 00000-0000",
-  "loja": "60e63feeb9283d0d1ca90a2e"
+  "telefone": "00 00000-0000"
 }
 ```
 
